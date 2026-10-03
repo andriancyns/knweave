@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Knweave — "Woven Paper" design system
+   ============================================================ */
+
+:root {
+  /* surfaces */
+  --paper: #f9fafb;
+  --surface: #ffffff;
+
+  /* ink */
+  --ink: #111827;
+  --ink-soft: #374151;
+  --ink-muted: #6b7280;
+
+  /* weave accents */
+  --blue: #2563eb;
+  --blue-soft: #3b82f6;
+  --blue-ink: #1d4ed8;
+  --blue-tint: #eff4ff;
+  --gray: #6b7280;
+  --thread: #d1d5db;
+
+  /* thread line weight */
+  --thread-w: 2.5px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv01";
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* faint paper grain + woven grid overlay for warmth */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      /* horizontal + vertical weave grid, very subtle */
+      linear-gradient(to right, rgba(17, 24, 39, 0.022) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 24, 39, 0.022) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 110% 80% at 50% 0%, #000 30%, transparent 90%);
+  }
+
+  /* selection */
+  ::selection {
+    background: rgba(37, 99, 235, 0.16);
+    color: var(--blue-ink);
+  }
+
+  /* focus ring */
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-weight: 540;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  /* container */
+  .shell {
+    @apply mx-auto w-full max-w-6xl px-6;
+  }
+
+  /* mono eyebrow label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-weave-blue;
+  }
+
+  /* primary woven button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-weave-blue px-6 py-3 text-sm font-semibold text-white shadow-[0_1px_0_rgba(255,255,255,0.4)_inset,0_8px_20px_-8px_rgba(37,99,235,0.6)] transition-all duration-200 hover:bg-weave-blueInk hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-weave-thread bg-surface px-6 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:border-ink-muted hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:text-weave-blue;
+  }
+
+  /* card surface */
+  .card {
+    @apply relative rounded-2xl border border-weave-thread/70 bg-surface transition-all duration-300;
+  }
+
+  /* search input */
+  .weave-input {
+    @apply w-full rounded-full border border-weave-thread bg-paper px-4 py-2 pl-10 text-sm text-ink placeholder:text-ink-muted/70 transition-colors focus:border-weave-blue/50 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-weave-blue/20;
+  }
+
+  /* Edit/View segmented control */
+  .weave-segmented {
+    @apply inline-flex items-center gap-0.5 rounded-full border border-weave-thread bg-paper p-0.5;
+  }
+  .weave-segmented button {
+    @apply rounded-full px-3 py-1 text-xs font-medium text-ink-muted transition-colors;
+  }
+  .weave-segmented button[aria-pressed="true"] {
+    @apply bg-surface text-weave-blueInk shadow-[0_1px_2px_rgba(17,24,39,0.08)];
+  }
+
+  /* filter chip */
+  .weave-chip {
+    @apply inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-weave-thread bg-surface px-3 py-1 font-mono text-[11px] font-medium text-ink-soft transition-colors hover:border-ink-muted/40;
+  }
+  .weave-chip[aria-pressed="true"] {
+    @apply border-weave-blue/30 bg-weave-blueTint text-weave-blueInk;
+  }
+
+  /* nested page indentation guide */
+  .tree-guide {
+    @apply border-l border-weave-thread/60;
+  }
+
+  /* keyboard shortcut keycap */
+  .kbd {
+    @apply inline-flex h-5 min-w-[20px] items-center justify-center rounded border border-weave-thread bg-paper px-1.5 font-mono text-[10px] font-medium text-ink-muted;
+  }
+}
+
+@layer components {
+  /* prose styling for rendered wiki markdown */
+  .prose-wiki {
+    @apply text-[15px] leading-[1.75] text-ink-soft;
+  }
+  .prose-wiki h1 {
+    @apply mt-2 mb-4 font-display text-[2rem] font-semibold leading-tight tracking-tight text-ink;
+  }
+  .prose-wiki h2 {
+    @apply mt-9 mb-3 font-display text-[1.5rem] font-semibold leading-snug tracking-tight text-ink;
+  }
+  .prose-wiki h3 {
+    @apply mt-7 mb-2 font-display text-[1.2rem] font-semibold tracking-tight text-ink;
+  }
+  .prose-wiki p {
+    @apply my-3.5 text-pretty;
+  }
+  .prose-wiki ul {
+    @apply my-3.5 space-y-1.5 pl-1;
+  }
+  .prose-wiki ul > li {
+    @apply relative pl-6;
+  }
+  .prose-wiki ul > li::before {
+    content: "";
+    @apply absolute left-1.5 top-[0.7em] h-1.5 w-1.5 rounded-full bg-weave-blue/60;
+  }
+  .prose-wiki ol {
+    @apply my-3.5 space-y-1.5 list-decimal pl-6 marker:font-mono marker:text-xs marker:text-ink-muted;
+  }
+  .prose-wiki a {
+    @apply font-medium text-weave-blue underline decoration-weave-blue/30 underline-offset-2 transition-colors hover:decoration-weave-blue;
+  }
+  .prose-wiki strong {
+    @apply font-semibold text-ink;
+  }
+  .prose-wiki :not(pre) > code {
+    @apply rounded-md border border-weave-blue/15 bg-weave-blueTint/70 px-1.5 py-0.5 font-mono text-[0.85em] text-weave-blueInk;
+  }
+  .prose-wiki pre {
+    @apply my-4 overflow-x-auto rounded-xl border border-weave-thread bg-[#0F172A] px-4 py-3.5 font-mono text-[13px] leading-relaxed text-slate-200;
+  }
+  .prose-wiki pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+  .prose-wiki blockquote {
+    @apply my-4 border-l-[3px] border-weave-blue/40 bg-weave-blueTint/40 py-1 pl-4 pr-3 text-ink-soft;
+  }
+  .prose-wiki hr {
+    @apply my-6 border-weave-thread/70;
+  }
+}
+
+@layer utilities {
+  /* reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
