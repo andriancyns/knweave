@@ -106,6 +106,9 @@ Fonts: `font-display` (Fraunces), `font-sans` (Hanken Grotesk), `font-mono` (Jet
 | `G` then `H` | Go to team home |
 | `?` | Show this shortcut list |
 
-## Roadmap notes
+## Roadmap & plans
 
 The wiki at `/app` is a front-end prototype: no server, no auth, no database. The domain model (`apps/web/components/wiki/types.ts`) is already shaped for a backend — pages reference parents and sections by id, and visibility is per page.
+
+- **[Roadmap](docs/ROADMAP.md)** — the long arc: Phase 1 make it real (backend + auth), Phase 2 collaboration, Phase 3 self-hosting & ecosystem, plus explicit non-goals
+- **[Sprint plan](docs/SPRINT_PLAN.md)** — current two-week sprint, upcoming sprints, backlog, and working agreements
